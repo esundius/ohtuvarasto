@@ -1,14 +1,19 @@
 from varasto import Varasto
 
 
-def main():
+def demonstrate_creation():
+    """Demonstrate creating Varasto instances."""
     mehua = Varasto(100.0)
     olutta = Varasto(100.0, 20.2)
 
     print("Luonnin jälkeen:")
     print(f"Mehuvarasto: {mehua}")
     print(f"Olutvarasto: {olutta}")
+    return mehua, olutta
 
+
+def demonstrate_basics(mehua, olutta):  # pylint: disable=too-many-statements
+    """Demonstrate getter and setter methods."""
     print("Olut getterit:")
     print(f"saldo = {olutta.saldo}")
     print(f"tilavuus = {olutta.tilavuus}")
@@ -22,6 +27,9 @@ def main():
     mehua.ota_varastosta(3.14)
     print(f"Mehuvarasto: {mehua}")
 
+
+def demonstrate_error_cases():
+    """Demonstrate error cases with invalid parameters."""
     print("Virhetilanteita:")
     print("Varasto(-100.0);")
     huono = Varasto(-100.0)
@@ -31,6 +39,9 @@ def main():
     huono = Varasto(100.0, -50.7)
     print(huono)
 
+
+def demonstrate_overflow(olutta, mehua):
+    """Demonstrate overflow and underflow behavior."""
     print(f"Olutvarasto: {olutta}")
     print("olutta.lisaa_varastoon(1000.0)")
     olutta.lisaa_varastoon(1000.0)
@@ -41,6 +52,9 @@ def main():
     mehua.lisaa_varastoon(-666.0)
     print(f"Mehuvarasto: {mehua}")
 
+
+def demonstrate_withdrawal(olutta, mehua):  # pylint: disable=too-many-statements
+    """Demonstrate withdrawal operations."""
     print(f"Olutvarasto: {olutta}")
     print("olutta.ota_varastosta(1000.0)")
     saatiin = olutta.ota_varastosta(1000.0)
@@ -52,6 +66,20 @@ def main():
     saatiin = mehua.ota_varastosta(-32.9)
     print(f"saatiin {saatiin}")
     print(f"Mehuvarasto: {mehua}")
+
+
+def run_demonstrations(mehua, olutta):
+    """Run all demonstrations."""
+    demonstrate_basics(mehua, olutta)
+    demonstrate_error_cases()
+    demonstrate_overflow(olutta, mehua)
+    demonstrate_withdrawal(olutta, mehua)
+
+
+def main():
+    """Main function demonstrating Varasto usage."""
+    mehua, olutta = demonstrate_creation()
+    run_demonstrations(mehua, olutta)
 
 
 if __name__ == "__main__":
